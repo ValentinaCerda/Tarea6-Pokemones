@@ -1,3 +1,12 @@
-.navbar-brand {
-  color: red;
+body {
+  background-color: aquamarine;
+}
+.card-title {
+  font-size: 40px;
+  font-family: 'Staatliches', cursive;
+  padding: 5%;
+}
+.card {
+  width: 18rem;
+  margin: auto;
 }

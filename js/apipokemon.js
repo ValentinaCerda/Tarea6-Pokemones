@@ -1,42 +1,23 @@
-// referencias
-const rowCards = document.querySelector('#rowCards');
+const rowCards = document.getElementById('rowCards');
 
 const getPokemones = async () => {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/`);
     const data = await response.json();
-    return data;
+
+    for (let i of data.results) {
+      const response = await fetch(i.url);
+      const data = await response.json();
+      //return data
+
+      rowCards.innerHTML +=
+      `<div class= "card mt-4">
+      <img class ="card-img-top mt-2" src="${data.sprites.other.home.front_default}">
+      <h2 class="card-title text-center">${data.name}</h2>
+        </div>`
+    }
   } catch (error) {
     console.log(error);
   }
 };
-
-const init = async () => {
-  const pokemons = await getPokemones();
-  createCards(pokemons.results);
-}
-init();
-
-cardPokemon = (pokemon) => {
-  //elementos html
-  const cardBootstrap = document.createElement('div');
-  const imgCard = document.createElement('img');
-  const titlePokemon = document.createElement('h5');
-
-  const namePokemon = document.createTextNode(pokemon.name);
-
-  // clases
-  cardBootstrap.classList.add('card', 'mt-4');
-  imgCard.classList.add('card-img-top', 'mt-2');
-  titlePokemon.classList.add('card-title', 'text-center');
-  
-  titlePokemon.appendChild(namePokemon);
-  imgCard.src=pokemon.sprites;
-
-  cardBootstrap.append(imgCard, titlePokemon);
-  rowCards.append(cardBootstrap);
-}
-
-createCards = (pokemons) => {
-  pokemons.map(element => cardPokemon(element));
-}
+getPokemones();
